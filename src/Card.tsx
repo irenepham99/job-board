@@ -1,6 +1,9 @@
-import React from "react";
 import { JobMetadata, NumberDictionary } from "./interfaces";
 import "./Card.css";
+import "./index.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Import FontAwesomeIcon component
+import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons"; // Import solid heart
+import { faHeart as outlineHeart } from "@fortawesome/free-regular-svg-icons"; // Import regular heart
 
 interface CardProps {
   job: JobMetadata;
@@ -11,34 +14,25 @@ interface CardProps {
 const Card = ({ job, handleToggledSavedJob, savedJobIds }: CardProps) => {
   return (
     <div className="card" key={job.id}>
-      <div className="card-element">
-        {job.title.match(/.*\)/) == null
-          ? job.title.match(/^[^\s]+/)
-          : job.title.match(/.*\)/)}
-        <br />
-        <br />
+      <div className="card-text-container">
+        <div className="card-element text-secondary">
+          {job.title.match(/.*?\)/) || job.title.match(/^[^\s]+/)}
+        </div>
+        <h3 className="card-element">
+          {job.title.match(/is hiring\s+(?:a\s+|an\s+)?(.*)/i)?.[1] || "--"}
+        </h3>
+        <div className="card-element text-secondary subtitle">
+          {new Date(job.time * 1000).toLocaleDateString()}
+        </div>
       </div>
-      <div className="card-element">
-        {job.title.match(/.*\)/) == null
-          ? job.title.match(/\s(.*)/)?.[0]
-          : job.title.match(/(?<=\))\s*(.*)/)?.[0]}
-        <br />
-        <br />
-      </div>
-      <div className="card-element">
-        {new Date(job.time * 1000).toLocaleDateString()}
-        <br />
-        <br />
-      </div>
-      <div className="button-bar">
-        <button onClick={() => window.open(job.url, "_blank")}>
+      <div className="button-container">
+        <button className="grow" onClick={() => window.open(job.url, "_blank")}>
           Apply Now!
         </button>
-        <button onClick={() => handleToggledSavedJob(job.id)}>
-          <i
-            className={
-              savedJobIds[job.id] === true ? "fas fa-heart" : "far fa-heart"
-            }
+        <button className="icon" onClick={() => handleToggledSavedJob(job.id)}>
+          <FontAwesomeIcon
+            icon={savedJobIds[job.id] === true ? solidHeart : outlineHeart}
+            className="icon"
           />
         </button>
       </div>

@@ -1,6 +1,6 @@
 import "./App.css";
 import "./Card.css";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { JobMetadata, NumberDictionary } from "./interfaces";
 import Card from "./Card";
 
@@ -65,9 +65,9 @@ function App() {
 
   const fetchMetaDataForJobs = async () => {
     try {
-      setIsLoading(true); // Start loading
-      setError(null); // Clear any previous errors
-
+      setIsLoading(true);
+      setError(null);
+      console.log(jobStartIndex, jobStartIndex + 9);
       const jobsToFetch = ids.slice(jobStartIndex, jobStartIndex + 9);
       const allMetadata = await Promise.all(
         jobsToFetch.map(async (jobId) => {
@@ -92,19 +92,32 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h2>Hacker Jobs Plus</h2>
-      <p>
-        Browse the lastest YC jobs from HackerNews without feeling overwhelmed
-        and having to squint
-      </p>
-      <button onClick={() => setIsAllJobs(false)}>
-        <i className="fas fa-heart" />
-        Saved Jobs
-        {Object.values(savedJobIds).filter((value) => value === true).length}
-      </button>
-      <button onClick={() => setIsAllJobs(true)}>All Jobs</button>
-      {isLoading && <div>Loading...</div>}
+    <div className="app-container">
+      <div className="header-container">
+        <h2>Hacker Jobs Plus</h2>
+        <div className="subtitle">
+          Browse the lastest YC jobs from HackerNews without feeling overwhelmed
+          and having to squint
+        </div>
+      </div>
+      <div className="tab-container">
+        <div
+          className={`tab ${!isAllJobs ? "active" : ""}`}
+          onClick={() => setIsAllJobs(false)}
+        >
+          Saved Jobs &nbsp;
+          {"(" +
+            Object.values(savedJobIds).filter((value) => value === true)
+              .length +
+            ")"}
+        </div>
+        <div
+          className={`tab ${isAllJobs ? "active" : ""}`}
+          onClick={() => setIsAllJobs(true)}
+        >
+          All Jobs
+        </div>
+      </div>
 
       {error && <div>Error: {error}</div>}
 
@@ -112,7 +125,7 @@ function App() {
         Object.values(savedJobIds).filter((val) => val === true).length ==
           0 && <div>No Saved Jobs</div>}
 
-      {!isLoading && !error && (
+      {metadatas.length > 0 && !error && (
         <div className="card-container">
           {filterJobs().map((job) => (
             <Card
@@ -124,7 +137,13 @@ function App() {
           ))}
         </div>
       )}
-      {isAllJobs && <button onClick={handleLoadMore}>Load More</button>}
+      {isAllJobs && !isLoading && (
+        <button className="primary" onClick={handleLoadMore}>
+          Load More
+        </button>
+      )}
+
+      {isLoading && <div>Loading...</div>}
     </div>
   );
 }
