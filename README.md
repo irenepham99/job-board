@@ -4,6 +4,13 @@ HackerNew's Job board is great, but trying to browse through the list of jobs ca
 
 All data is taken from https://news.ycombinator.com/jobs. 
 
+*This is a serverless application so user data is saved on a per session basis. 
+
+## Live Site 
+
+Visit the site below:
+https://job-board-one-lovat.vercel.app/
+
 ## How To Run
 
 1. Make sure you have npm installed. If not follow the instructions here: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm. 
