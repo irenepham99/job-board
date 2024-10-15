@@ -14,3 +14,7 @@ All data is taken from https://news.ycombinator.com/jobs.
 
 If you'd like to build the app for production and deploy it run `npm run build`. 
 
+## Figma Designs
+
+See the designs and component set I created in the following Figma file [https://www.figma.com/design/q6HVTC4eDwCkCItCFAZE5e/HackerNews-Job-Board?node-id=7-12&t=i00vGdZbLcPBqAf1-1]. 
+
