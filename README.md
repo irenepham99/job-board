@@ -11,6 +11,9 @@ All data is taken from https://news.ycombinator.com/jobs.
 Visit the site below:
 https://job-board-one-lovat.vercel.app/
 
+## Screenshot of Site
+![HackerNews Job Board Screenshot](https://drive.google.com/uc?export=view&id=1SFYhTbjTuf8UcnLeis2lnem9z874sy7O)
+
 ## How To Run
 
 1. Make sure you have npm installed. If not follow the instructions here: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm. 
